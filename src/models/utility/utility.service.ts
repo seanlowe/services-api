@@ -59,6 +59,15 @@ export class UtilityService {
     }
 
     /**
+     * @param id 
+     * 
+     * @returns 
+     */
+    getVersionsByUtility(id: number) {
+        return this.versionService.getVersionsByUtilityId(id);
+    }
+
+    /**
      * @param utility 
      * 
      * @returns 

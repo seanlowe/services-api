@@ -17,6 +17,11 @@ export class UtilityController {
         return this.utilityService.getUtilityById(Number(id));
     }
 
+    @Get('/:id/versions')
+    getVersionsByUtility(@Param('id') id: string) {
+        return this.utilityService.getVersionsByUtility(Number(id));
+    }
+
     @Post()
     async create(@Body() util: CreateUtilityDto) {
         return this.utilityService.create(util);

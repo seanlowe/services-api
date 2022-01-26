@@ -10,10 +10,18 @@ import Version from "./version.entity";
 export class VersionService {
     constructor(@InjectRepository(Version) private repo: Repository<Version>) {}
 
+    /**
+     * @returns 
+     */
     get() {
         return this.repo.find();
     }
 
+    /**
+     * @param utility_id 
+     * 
+     * @returns 
+     */
     async getVersionsByUtilityId(utility_id: number) {
         const versions = await this.repo.createQueryBuilder("version")
             .where("version.utility_id = :utility_id", { utility_id })
@@ -27,6 +35,11 @@ export class VersionService {
         throw new HttpException('No Utility Found by that ID', HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * @param oldUtil 
+     * 
+     * @returns 
+     */
     async create(oldUtil: Utility): Promise<Version> {
         const plain = classToPlainFromExist(oldUtil, CreateVersionDto);
         const dto = plainToClass(CreateVersionDto, plain);

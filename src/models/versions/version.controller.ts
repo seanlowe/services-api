@@ -9,9 +9,4 @@ export class VersionController {
     async get() {
         return this.versionService.get();
     }
-
-    @Get('utility/:utility_id')
-    getVersionsByUtilityId(@Param('utility_id') utility_id: string) {
-        return this.versionService.getVersionsByUtilityId(Number(utility_id));
-    }
 }
