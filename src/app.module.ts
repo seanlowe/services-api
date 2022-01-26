@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database.module';
 import { UtilityModule } from './models/utility/utility.module';
+import { VersionModule } from './models/versions/version.module';
 import { ConfigSchema } from './validationSchema/configSchema';
 
 @Module({
@@ -13,7 +14,8 @@ import { ConfigSchema } from './validationSchema/configSchema';
     validationSchema: ConfigSchema,
   }),
   DatabaseModule,
-  UtilityModule
+  UtilityModule,
+  VersionModule
 ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,6 +1,6 @@
 {
   "name": "takehome-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple API project assigned by Kong as a take home project during the hiring process.",
   "author": "Sean Lowe",
   "private": true,
@@ -9,7 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "npm run build && nest start",
     "develop": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -25,12 +25,14 @@
     "db:build": "sh src/scripts/database.sh"
   },
   "dependencies": {
-    "@nestjs/common": "^8.0.0",
+    "@nestjs-query/query-typeorm": "^0.30.0",
+    "@nestjs/common": "^8.2.6",
     "@nestjs/config": "^1.1.6",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "^8.0.3",
     "@types/joi": "^17.2.3",
+    "class-transformer": "^0.4.0",
     "joi": "^17.5.0",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",

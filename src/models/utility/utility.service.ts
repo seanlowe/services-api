@@ -1,20 +1,46 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import Utility from "./utility.entity";
 import { Repository } from "typeorm";
+import Utility from "./utility.entity";
 import CreateUtilityDto from "./create.dto";
 import UpdateUtilityDto from "./update.dto";
+import { VersionService } from "../versions/version.service";
 
 
 @Injectable()
 export class UtilityService {
-    constructor(@InjectRepository(Utility) private repo: Repository<Utility>) {}
+    constructor(
+        @InjectRepository(Utility) private repo: Repository<Utility>,
+        private readonly versionService: VersionService
+    ) {}
 
     /**
      * @returns 
      */
     get() {
         return this.repo.find();
+    }
+
+    /**
+     * @param query 
+     * 
+     * @returns 
+     */
+    async getAndFilter(query) {
+        console.log(query);
+        // const queryBuilder = this.repo.createQueryBuilder("")
+
+
+        // findByUsername(username: string): Promise<User | undefined> {
+        //     const user = getRepository(User)
+        //       .createQueryBuilder("user")
+        //       .where("user.username = :username", { username: username })
+        //       .getOne();
+        
+        //     return user;
+        //   }
+
+        return [];
     }
 
     /**
@@ -51,14 +77,17 @@ export class UtilityService {
      * @returns 
      */
     async update(id: number, util: UpdateUtilityDto): Promise<Utility> {
+        const oldUtil = await this.getUtilityById(id);
+        if (!oldUtil) {
+            throw new HttpException('No Utility Found by that ID', HttpStatus.NOT_FOUND);
+        }
+
+        this.versionService.create(oldUtil);
+        
         await this.repo.update(id, util);
         const updatedUtil = await this.repo.findOne(id);
 
-        if (updatedUtil) {
-            return updatedUtil;
-        }
-
-        throw new HttpException('No Utility Found by that ID', HttpStatus.NOT_FOUND)
+        return updatedUtil;
     }
     
     /**

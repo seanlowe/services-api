@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
 
 @Entity('utility')
 class Utility {
@@ -8,17 +8,22 @@ class Utility {
   @Column()
   public title: string;
 
-  @Column({ 
-    name: 'Description',
+  @Column({
     type: 'varchar',
     nullable: true,
    })
   public description: string;
+  
+  @VersionColumn()
+  public verison: number;
 
   @Column({ nullable: true })
+  public published: boolean;
+
+  @CreateDateColumn({ nullable: true })
   public created_at: Date;
 
-  @Column({ nullable: true })
+  @UpdateDateColumn({ nullable: true })
   public updated_at: Date;
 }
 
