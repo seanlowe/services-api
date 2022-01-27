@@ -25,7 +25,6 @@
     "db:build": "sh src/scripts/database.sh"
   },
   "dependencies": {
-    "@nestjs-query/query-typeorm": "^0.30.0",
     "@nestjs/common": "^8.2.6",
     "@nestjs/config": "^1.1.6",
     "@nestjs/core": "^8.0.0",

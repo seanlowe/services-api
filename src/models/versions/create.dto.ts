@@ -11,7 +11,7 @@ class CreateVersionDto {
     constructor(oldUtility: Utility) {
         this.title = oldUtility.title;
         this.description = oldUtility.description;
-        this.version = oldUtility.verison;
+        this.version = oldUtility.version;
         this.published = oldUtility.published;
     }
 }

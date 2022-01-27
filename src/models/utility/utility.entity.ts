@@ -15,7 +15,7 @@ class Utility {
   public description: string;
   
   @VersionColumn()
-  public verison: number;
+  public version: number;
 
   @Column({ nullable: true })
   public published: boolean;

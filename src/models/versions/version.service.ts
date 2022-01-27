@@ -11,24 +11,27 @@ export class VersionService {
     constructor(@InjectRepository(Version) private repo: Repository<Version>) {}
 
     /**
-     * @returns 
+     * Retrieve all Versions in the database.
+     * 
+     * @returns Promise<Version[]>
      */
-    get() {
+    get(): Promise<Version[]> {
         return this.repo.find();
     }
 
     /**
+     * Retrieves any Version associated with the Utility id passed in.
+     * 
      * @param utility_id 
      * 
-     * @returns 
+     * @returns Promise<Version[]>
      */
-    async getVersionsByUtilityId(utility_id: number) {
+    async getVersionsByUtilityId(utility_id: number): Promise<Version[]> {
         const versions = await this.repo.createQueryBuilder("version")
             .where("version.utility_id = :utility_id", { utility_id })
             .getMany();
 
         if (versions) {
-            // return JSON.stringify(versions);
             return versions;
         }
 
@@ -36,9 +39,12 @@ export class VersionService {
     }
 
     /**
+     * Creates a new Version record from the passed in Utility 
+     * in the database, then returns the new record.
+     * 
      * @param oldUtil 
      * 
-     * @returns 
+     * @returns Promise<Version>
      */
     async create(oldUtil: Utility): Promise<Version> {
         const plain = classToPlainFromExist(oldUtil, CreateVersionDto);
@@ -50,5 +56,4 @@ export class VersionService {
 
         return newVersion;
     }
-
 }

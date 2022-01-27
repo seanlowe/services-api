@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import CreateUtilityDto from "./create.dto";
 import UpdateUtilityDto from "./update.dto";
 import { UtilityService } from "./utility.service";
@@ -8,8 +8,8 @@ export class UtilityController {
     constructor(private readonly utilityService: UtilityService) {}
 
     @Get()
-    get() {
-        return this.utilityService.get();
+    get(@Query() query: object) {
+        return this.utilityService.get(query);
     }
 
     @Get(':id')
