@@ -64,7 +64,7 @@ $ npm run start
 | METHOD         |              ROUTES            | Returns |
 | -------------- | ------------------------------ | ------- |
 | GET            | /utility                       | list of all Utility records
-|                | /utility?parameter=value       | list of all Utility records that match the [query parameters](#query_parameters)
+|                | /utility?parameter=value       | list of all Utility records that match the query parameters (see below)
 |                | /utility/**_{id}_**            | a singular Utility record with id = **_id_**
 |                | /utility/**_{id}_**/versions   | list of all Version records tied to the Utility with **_id_**
 |                | /versions                      | list of all Version records
