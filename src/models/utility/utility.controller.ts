@@ -18,8 +18,8 @@ export class UtilityController {
     }
 
     @Get('/:id/versions')
-    getVersionsByUtility(@Param('id') id: string) {
-        return this.utilityService.getVersionsByUtility(Number(id));
+    getVersionsByUtility(@Param('id') id: string, @Query() query: object) {
+        return this.utilityService.getVersionsByUtility(Number(id), query);
     }
 
     @Post()

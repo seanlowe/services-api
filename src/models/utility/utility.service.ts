@@ -3,21 +3,19 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ILike, Repository } from "typeorm";
 import { VersionService } from "../versions/version.service";
 import Utility from "./utility.entity";
-import Version from "../versions/version.entity";
 import CreateUtilityDto from "./create.dto";
 import UpdateUtilityDto from "./update.dto";
+import { BaseService } from "../base.service";
 
 
 @Injectable()
-export class UtilityService {
+export class UtilityService extends BaseService {
     constructor(
         @InjectRepository(Utility) private repo: Repository<Utility>,
         private readonly versionService: VersionService
-    ) {}
-
-    private results_per_page = 5;
-    private page = -1;
-    private total_records = -1;
+    ) {
+        super();
+    }
 
     /**
      * Gets all applicable records according to the passed in query
@@ -102,41 +100,6 @@ export class UtilityService {
     }
 
     /**
-     * Handles pagination for the list of records passed in
-     * 
-     * @param results 
-     * 
-     * @returns Utility[]
-     */
-    private paginate(results: Utility[]|Version[]): Utility[]|Version[] {
-        this.total_records = results.length;
-
-        const offset = (this.page - 1) * this.results_per_page;
-        const records_on_page = results.slice(offset, offset+this.results_per_page);
-
-        return records_on_page;
-    }
-
-    /**
-     * Builds a response object containing the list of results passed in 
-     * and some pagination metadata.
-     * 
-     * @param results 
-     * 
-     * @returns Promise<Object>
-     */
-    private async buildResponse(results: Utility[]|Version[]): Promise<Object> {
-        let response = {
-            'content': results,
-            'page': this.page,
-            'results_per_page': this.results_per_page,
-            'total_results': this.total_records,
-        };
-
-        return response;
-    }
-
-    /**
      * Builds and returns an options object (to be passed into this.find()) based upon
      * the query parameter passed in.
      * 
@@ -217,12 +180,10 @@ export class UtilityService {
      * 
      * @returns Promise<Object>
      */
-    async getVersionsByUtility(id: number): Promise<Object> {
-        const results = await this.versionService.getVersionsByUtilityId(id);
+    async getVersionsByUtility(id: number, query: object): Promise<Object> {
+        const results = await this.versionService.getVersionsByUtilityId(id, query);
 
-        const paginated_results = this.paginate(results);
-
-        return this.buildResponse(paginated_results);
+        return results;
     }
 
     /**
