@@ -1,6 +1,6 @@
 {
   "name": "takehome-app",
-  "version": "0.0.2",
+  "version": "1.0",
   "description": "A simple API project assigned by Kong as a take home project during the hiring process.",
   "author": "Sean Lowe",
   "private": true,
