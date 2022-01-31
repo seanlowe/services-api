@@ -72,6 +72,21 @@ $ npm run start
 | PUT            | /utility/**_{id}_**            | the updated Utility record with id = **_id_**
 | DELETE         | /utility/**_{id}_**            | status code 200 OK
 
+#### **Route Request Body Requirements**
+
+**POST / PUT**
+Available Properties:
+- title
+- description
+- published
+
+```javascript
+{
+  // property: value
+  "title": "legs",
+  "description": "an essential part of any bipedal organism"
+}
+```
 
 ### **Query Parameters**
 
